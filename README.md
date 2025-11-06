@@ -4,7 +4,7 @@ Automatic switching of Tahoe video wallpapers and screensavers (Morning/Day/Even
 
 ## Requirements
 
-- macOS 15+ (Tahoe)
+- macOS 15+ (Sequoia/Tahoe)
 - Tahoe video wallpapers from System Settings
 
 ## Installation
