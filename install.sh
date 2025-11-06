@@ -59,10 +59,6 @@ echo "Copying scripts..."
 cp "${SCRIPT_DIR}/update_aerial.sh" "${AERIAL_DIR}/"
 cp "${SCRIPT_DIR}/aerial_dispatch.sh" "${AERIAL_DIR}/"
 
-# Make scripts executable (optional, since we call them via bash)
-chmod u+x "${AERIAL_DIR}/update_aerial.sh"
-chmod u+x "${AERIAL_DIR}/aerial_dispatch.sh"
-
 # Copy and configure plist
 echo "Configuring LaunchAgent..."
 cp "${SCRIPT_DIR}/com.username.aerial.switcher.plist" "${LAUNCH_AGENTS}/${PLIST_NAME}"
