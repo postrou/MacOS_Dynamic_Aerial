@@ -1,26 +1,26 @@
 # Aerial Wallpaper Switcher for macOS
 
-Automatic switching of MacOS video wallpapers and screensavers (Morning/Day/Evening/Night) based on time of day in MacOS 15+ (Sequoia/Tahoe). This simulates the behavior of MacOS dynamic wallpapers, but with video wallpapers from "Landscape/Cityscape/...". As example, we take Tahoe Morning/Day/Evening/Night wallpapers.
+Automatic switching of Tahoe video wallpapers and screensavers (Morning/Day/Evening/Night) based on time of day in macOS 15 (Sequoia/Tahoe).
 
 ## Requirements
 
-- MacOS 15+ (Tahoe)
+- macOS 15+ (Tahoe)
 - Tahoe video wallpapers from System Settings
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/postrou/macos_dynamic_aerial.git
-cd macos_dynamic_aerial
+git clone https://github.com/yourusername/aerial-switcher.git
+cd aerial-switcher
 ```
 
-2. Run the installer:
+2. Create profiles for each time of day:
+
+**Create the directory:**
 ```bash
-bash install.sh
+mkdir -p ~/.aerial
 ```
-
-3. Create profiles for each time of day:
 
 **For Tahoe Morning:**
 - Open System Settings → Wallpaper & Screensaver
@@ -33,10 +33,22 @@ cp ~/Library/Application\ Support/com.apple.wallpaper/Store/Index.plist ~/.aeria
 
 **Repeat for Tahoe Day, Evening, Night:**
 ```bash
+# Select Tahoe Day in System Settings, then:
 cp ~/Library/Application\ Support/com.apple.wallpaper/Store/Index.plist ~/.aerial/Tahoe-Day.plist
+
+# Select Tahoe Evening in System Settings, then:
 cp ~/Library/Application\ Support/com.apple.wallpaper/Store/Index.plist ~/.aerial/Tahoe-Evening.plist
+
+# Select Tahoe Night in System Settings, then:
 cp ~/Library/Application\ Support/com.apple.wallpaper/Store/Index.plist ~/.aerial/Tahoe-Night.plist
 ```
+
+3. Run the installer:
+```bash
+bash install.sh
+```
+
+The installer will copy scripts and configure the LaunchAgent to automatically switch wallpapers.
 
 ## Switching Schedule
 
@@ -84,7 +96,7 @@ cat ~/Library/Logs/aerial.switcher.err.log
 ```
 
 **Profiles not found:**
-Make sure you created all four .plist files in `~/.aerial/`
+Make sure you created all four .plist files in `~/.aerial/` BEFORE running install.sh
 
 **Bootstrap failed: 5:**
 ```bash

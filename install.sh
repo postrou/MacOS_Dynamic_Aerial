@@ -15,9 +15,42 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "User: ${CURRENT_USER}"
 echo "Installation directory: ${AERIAL_DIR}"
 
-# Create necessary directories
+# Check if .aerial directory exists with required profiles
+echo "Checking prerequisites..."
+if [[ ! -d "${AERIAL_DIR}" ]]; then
+  echo "✗ Error: Directory ${AERIAL_DIR} not found!"
+  echo ""
+  echo "Please create profiles first:"
+  echo "  mkdir -p ~/.aerial"
+  echo "  # Then save each Tahoe profile as described in README.md"
+  exit 1
+fi
+
+# Check for required profile files
+REQUIRED_PROFILES=("Tahoe-Morning.plist" "Tahoe-Day.plist" "Tahoe-Evening.plist" "Tahoe-Night.plist")
+MISSING_PROFILES=()
+
+for profile in "${REQUIRED_PROFILES[@]}"; do
+  if [[ ! -f "${AERIAL_DIR}/${profile}" ]]; then
+    MISSING_PROFILES+=("${profile}")
+  fi
+done
+
+if [[ ${#MISSING_PROFILES[@]} -gt 0 ]]; then
+  echo "✗ Error: Missing profile files in ${AERIAL_DIR}:"
+  for profile in "${MISSING_PROFILES[@]}"; do
+    echo "  - ${profile}"
+  done
+  echo ""
+  echo "Please create all four profiles before installation."
+  echo "See README.md for instructions."
+  exit 1
+fi
+
+echo "✓ All profile files found"
+
+# Create other necessary directories
 echo "Creating directories..."
-mkdir -p "${AERIAL_DIR}"
 mkdir -p "${LAUNCH_AGENTS}"
 mkdir -p "${USER_HOME}/Library/Logs"
 
@@ -25,6 +58,10 @@ mkdir -p "${USER_HOME}/Library/Logs"
 echo "Copying scripts..."
 cp "${SCRIPT_DIR}/update_aerial.sh" "${AERIAL_DIR}/"
 cp "${SCRIPT_DIR}/aerial_dispatch.sh" "${AERIAL_DIR}/"
+
+# Make scripts executable (optional, since we call them via bash)
+chmod u+x "${AERIAL_DIR}/update_aerial.sh"
+chmod u+x "${AERIAL_DIR}/aerial_dispatch.sh"
 
 # Copy and configure plist
 echo "Configuring LaunchAgent..."
@@ -60,15 +97,14 @@ fi
 echo ""
 echo "=== Installation Complete ==="
 echo ""
-echo "Next steps:"
-echo "1. Select Tahoe Morning in System Settings → Wallpaper & Screensaver"
-echo "2. Save the profile:"
-echo "   cp ~/Library/Application\\ Support/com.apple.wallpaper/Store/Index.plist ~/.aerial/Tahoe-Morning.plist"
-echo ""
-echo "3. Repeat for Tahoe Day, Evening, Night"
+echo "The wallpaper will switch automatically at:"
+echo "  06:00 - Morning"
+echo "  12:00 - Day"
+echo "  18:00 - Evening"
+echo "  22:00 - Night"
 echo ""
 echo "Management:"
 echo "  Check status: launchctl list | grep aerial"
 echo "  Logs: tail -f ~/Library/Logs/aerial.switcher.err.log"
-echo "  Test: bash ~/.aerial/aerial_dispatch.sh"
+echo "  Test now: bash ~/.aerial/aerial_dispatch.sh"
 echo "  Uninstall: ./uninstall.sh"
