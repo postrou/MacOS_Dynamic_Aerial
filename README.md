@@ -23,8 +23,8 @@ mkdir -p ~/.aerial
 ```
 
 **For Tahoe Morning:**
-- Open System Settings → Wallpaper & Screensaver
-- Select Tahoe Morning
+- Open System Settings → Wallpaper
+- Select Landscape/Tahoe Morning
 - Wait for video to download
 - Save the profile:
 ```bash
@@ -35,10 +35,14 @@ cp ~/Library/Application\ Support/com.apple.wallpaper/Store/Index.plist ~/.aeria
 ```bash
 # Select Tahoe Day in System Settings, then:
 cp ~/Library/Application\ Support/com.apple.wallpaper/Store/Index.plist ~/.aerial/Tahoe-Day.plist
+```
 
+```bash
 # Select Tahoe Evening in System Settings, then:
 cp ~/Library/Application\ Support/com.apple.wallpaper/Store/Index.plist ~/.aerial/Tahoe-Evening.plist
+```
 
+```bash
 # Select Tahoe Night in System Settings, then:
 cp ~/Library/Application\ Support/com.apple.wallpaper/Store/Index.plist ~/.aerial/Tahoe-Night.plist
 ```
