@@ -103,7 +103,3 @@ Make sure you created all four .plist files in `~/.aerial/` BEFORE running insta
 launchctl remove com.$(whoami).aerial.switcher
 bash install.sh
 ```
-
-## License
-
-MIT
