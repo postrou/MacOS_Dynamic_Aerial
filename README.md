@@ -11,7 +11,7 @@ Automatic switching of Tahoe video wallpapers and screensavers (Morning/Day/Even
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/aerial-switcher.git
+git clone https://github.com/postrou/MacOS_Dynamic_Aerial.git
 cd aerial-switcher
 ```
 
